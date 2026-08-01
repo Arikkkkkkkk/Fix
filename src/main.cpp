@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <cstring>
 #include <android/log.h>
-#include "pl/legacy/Gloss.h"
+#include "pl/legacy/GlossHook.h"
 #include "pl/legacy/LegacySignature.h"
 #include "main.h"
 
