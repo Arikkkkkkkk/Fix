@@ -84,4 +84,10 @@ inline void ShulkerBoxBlockItem_appendFormattedHovertext_hook(
     g_shulkerCacheIndex = index;
     g_shulkerColorCode  = color;
     g_hasShulkerData    = true;
+
+    // This is a fresh, validated hover target - forget any prior cursor
+    // position so the render hook doesn't compare against stale data left
+    // over from a previous (possibly unrelated) hover/drag and immediately
+    // invalidate the box we just legitimately populated.
+    g_shulkerHasLastCursor = false;
 }
