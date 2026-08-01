@@ -1,8 +1,8 @@
 #include <cstdint>
 #include <cstring>
 #include <android/log.h>
-#include "pl/Gloss.h"
-#include "pl/Signature.h"
+#include "pl/legacy/Gloss.h"
+#include "pl/legacy/LegacySignature.h"
 #include "main.h"
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO,  "[ShulkerPreview]", __VA_ARGS__)
@@ -14,7 +14,7 @@ ItemRenderer_renderGuiItemNew_t    ItemRenderer_renderGuiItemNew    = nullptr;
 static constexpr const char* MCPE_LIB = "libminecraftpe.so";
 
 static void* resolve(const char* sig, const char* name) {
-    uintptr_t addr = pl::signature::pl_resolve_signature(sig, MCPE_LIB);
+    uintptr_t addr = pl_resolve_signature(sig, MCPE_LIB);
     if (!addr) { LOGE("not found: %s", name); return nullptr; }
     LOGI("found %s @ 0x%lx", name, (unsigned long)addr);
     return reinterpret_cast<void*>(addr);
