@@ -24,6 +24,11 @@ inline void HoverRenderer_renderHoverBox_hook(
     if (!self)
         return;
 
+    // If the touch/cursor position has moved since last frame, the finger
+    // is being dragged and the game may not have re-validated what's
+    // actually under it (see shulkerglobals.h). Don't trust the cached
+    // data anymore in that case - drop it and skip rendering this frame.
+    // A fresh tap on a shulker box will repopulate it.
     if (g_shulkerHasLastCursor) {
         float dx = self->mCursorX - g_shulkerLastCursorX;
         float dy = self->mCursorY - g_shulkerLastCursorY;
