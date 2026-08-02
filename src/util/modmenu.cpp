@@ -13,7 +13,7 @@
 #include <mutex>
 #include <cstring>
 
-#include "pl/legacy/GlossHook.h"
+#include "pl/Memory/Hook.hpp"
 
 #include "ImGui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
