@@ -300,12 +300,15 @@ static bool OnTouchCallback(int action, int pointerId, float x, float y) {
 
 static void* imgui_thread(void*) {
     sleep(3); // wait for game libs to load
-    GlossInit(true);
-    GHandle hegl = GlossOpen("libEGL.so");
-    if (hegl) {
-        void* swap = (void*)GlossSymbol(hegl, "eglSwapBuffers", nullptr);
-        if (swap) GlossHook(swap, (void*)hook_eglswapbuffers, (void**)&orig_eglswapbuffers);
+    void* eglLib = dlopen("libEGL.so", RTLD_NOW);
+if (eglLib) {
+    void* swap = dlsym(eglLib, "eglSwapBuffers");
+    if (swap) {
+        void* origRaw = nullptr;
+        pl::memory::hook(swap, reinterpret_cast<void*>(hook_eglswapbuffers), &origRaw);
+        orig_eglswapbuffers = reinterpret_cast<EGLBoolean(*)(EGLDisplay, EGLSurface)>(origRaw);
     }
+}
 
     void* preloaderLib = dlopen("libpreloader.so", RTLD_NOW);
     if (preloaderLib) {
