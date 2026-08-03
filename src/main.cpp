@@ -6,6 +6,7 @@
 #include "pl/memory/Vtable.hpp"
 #include "pl/memory/Hook.hpp"
 #include "main.h"
+#include "modmenu.h"
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO,  "[ShulkerPreview]", __VA_ARGS__)
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "[ShulkerPreview]", __VA_ARGS__)
